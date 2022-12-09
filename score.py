@@ -14,6 +14,7 @@ def f_sumar_score(jugador):
     jugadores = f_cargar()
     for usuario in jugadores:
         if usuario["nombre"] == jugador["nombre"]: usuario["score"] += 1
+    f_guardar(jugadores)
 
 def f_crear_jugadores():
     jugadores = f_cargar()
@@ -35,6 +36,9 @@ def f_crear_jugadores():
     f_jugador_creado()
     f_recordar_carga()
     f_continuar()
+    return None
+
+def f_cargar_jugador():
     return None
 
 

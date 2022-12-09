@@ -8,9 +8,9 @@
 # Módulo de gestión del juego.
 
 from pantallas import f_pantalla_principal, f_error, f_acercade, f_pedir_palabra, \
-     f_despedida, f_letras, f_pedir_letra, f_horca, f_ganador, f_perdedor
-from score import f_crear_jugadores
-
+     f_despedida, f_letras, f_pedir_letra, f_horca, f_ganador, f_perdedor, f_visualizar_score
+from score import f_crear_jugadores, f_cargar_jugador
+from persistencia import f_cargar
 def f_jugar():
     '''Función que implementa el juego del ahorcado'''
     
@@ -73,12 +73,21 @@ def f_gestion():
             f_despedida()
             ret = False
         
+        # Cargar jugadores
+        if op == "1":
+            f_cargar_jugador()
+
         # Crear jugadores
         if op == "2":
             f_crear_jugadores()
 
+        #Resultados jugadores
+        if op == "4":
+            jugadores = f_cargar()
+            f_visualizar_score(jugadores)
+
         # Acerca de...
-        if op == '4':
+        if op == '5':
             f_acercade()
             
         # Jugar.

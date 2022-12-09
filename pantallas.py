@@ -66,7 +66,8 @@ def f_pantalla_principal():
     1) Cargar jugadores.
     2) Crear jugadores.
     3) Jugar!!!
-    4) Acerca de...
+    4) Resultados jugadores
+    5) Acerca de...
     0) Salir
     
     ==> '''
@@ -185,9 +186,9 @@ def f_visualizar_score(jugadores):
     
     linea = ""
     for i in jugadores: 
-        linea += "{} - Partidas ganadas: {}".format(i[0], i[1])
-    cadena += linea
-    
+        linea = "{} - Partidas ganadas: {}\n".format(i["nombre"], i["score"])
+        cadena += linea
+        cadena += "    "
     print(cadena)
     
     return None
