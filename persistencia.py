@@ -7,3 +7,21 @@
 
 # Módulo de persistencia de datos.
 
+import json
+
+def f_cargar():
+    
+    f = open("datos.json", "r")
+    jugadores = json.load(f)
+    f.close()
+
+    return jugadores
+
+def f_guardar(jugadores):
+
+    f = open("datos.json", "w")
+    json.dump(jugadores, f)
+    f.close()
+
+    return None
+

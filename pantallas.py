@@ -299,3 +299,51 @@ def f_horca(opcion):
 
     print(cadena)
     return None
+
+def f_jugador_existente():
+    cadena = '''
+    El jugador introducido ya existe'''
+
+    print(cadena)
+
+    return None
+
+def f_jugador_eliminado():
+    cadena = '''
+    El jugador ha sido eliminado correctamente'''
+
+    print(cadena)
+
+    return None
+
+def f_pregunta_eliminar():
+    cadena = '''
+    ¿Quieres eliminar el usuario? (Si/No) ==> '''
+
+    ret = input(cadena)
+
+    return ret
+
+def f_jugador_creado():
+    cadena = '''
+    El jugador ha sido creado correctamente'''
+
+    print(cadena)
+
+    return None
+
+def f_no_accion():
+    cadena = '''
+    No se ha realizado ninguna accion'''
+
+    print(cadena)
+
+    return None
+
+def f_recordar_carga():
+    cadena = '''
+    Recuerda cargar un jugador antes de jugar'''
+
+    print(cadena)
+
+    return None

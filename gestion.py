@@ -9,6 +9,7 @@
 
 from pantallas import f_pantalla_principal, f_error, f_acercade, f_pedir_palabra, \
      f_despedida, f_letras, f_pedir_letra, f_horca, f_ganador, f_perdedor
+from score import f_crear_jugadores
 
 def f_jugar():
     '''Función que implementa el juego del ahorcado'''
@@ -72,6 +73,10 @@ def f_gestion():
             f_despedida()
             ret = False
         
+        # Crear jugadores
+        if op == "2":
+            f_crear_jugadores()
+
         # Acerca de...
         if op == '4':
             f_acercade()
