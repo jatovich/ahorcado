@@ -8,7 +8,8 @@
 # Módulo encargado de gestionar a los jugadores, sus puntuaciones, y el proceso de guardar
 # y cargar sus datos en el programa.
 from persistencia import f_cargar, f_guardar
-from pantallas import f_pedir_usuario, f_jugador_existente, f_pregunta_eliminar, f_jugador_eliminado, f_jugador_creado, f_no_accion, f_recordar_carga, f_continuar
+from pantallas import f_pedir_usuario, f_jugador_existente, f_pregunta_eliminar, f_jugador_eliminado, f_jugador_creado, \
+     f_no_accion, f_recordar_carga, f_continuar, f_cargados, f_jugador_cargado, f_error_carga
 
 def f_sumar_score(jugador):
     jugadores = f_cargar()
@@ -39,6 +40,18 @@ def f_crear_jugadores():
     return None
 
 def f_cargar_jugador():
+    global jugador1
+    global jugador2
+    if jugador1 == None: jugador1 = f_pedir_usuario(); f_jugador_cargado()
+    elif jugador2 == None: 
+        jugador2 = f_pedir_usuario()
+        if jugador2 == jugador1(): f_error_carga(); jugador2 = None
+        else: f_jugador_cargado()
+    else: 
+        pregunta_carga = f_cargados()
+        if pregunta_carga == "Si": jugador1 = None; jugador2 = None
+        else: f_no_accion()
+    
     return None
 
 

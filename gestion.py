@@ -8,9 +8,11 @@
 # Módulo de gestión del juego.
 
 from pantallas import f_pantalla_principal, f_error, f_acercade, f_pedir_palabra, \
-     f_despedida, f_letras, f_pedir_letra, f_horca, f_ganador, f_perdedor, f_visualizar_score
+     f_despedida, f_letras, f_pedir_letra, f_horca, f_ganador, f_perdedor, f_visualizar_score, \
+     f_letra_revelada
 from score import f_crear_jugadores, f_cargar_jugador
 from persistencia import f_cargar
+
 def f_jugar():
     '''Función que implementa el juego del ahorcado'''
     
@@ -46,7 +48,8 @@ def f_jugar():
                 while p < nletras: 
                     if letra_candidata == palabra[p]:
                         # Hay una coincidencia, por lo que lo incluimos...
-                        l[p] = letra_candidata
+                        if l[p] == letra_candidata: f_letra_revelada(); break
+                        else: l[p] = letra_candidata
                     p += 1
             
             # Comprobamos si nos han ahorcado o hemos ganado.

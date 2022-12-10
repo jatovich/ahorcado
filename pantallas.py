@@ -7,7 +7,7 @@
 
 # Módulo de pantallas, peticiones de información y gráficos del juego.
 
-import getpass
+import pwinput
 
 def f_letras(letras):
     '''Función que visualiza las posiciones de las letras'''
@@ -120,7 +120,7 @@ def f_pedir_palabra():
     ==> El Ahorcado <== 
     
     Palabra: '''
-    ret = getpass.getpass(prompt=cadena)
+    ret = pwinput.pwinput(prompt=cadena)
     
     return ret  
 
@@ -303,7 +303,8 @@ def f_horca(opcion):
 
 def f_jugador_existente():
     cadena = '''
-    El jugador introducido ya existe'''
+    El jugador introducido ya existe
+    '''
 
     print(cadena)
 
@@ -311,7 +312,8 @@ def f_jugador_existente():
 
 def f_jugador_eliminado():
     cadena = '''
-    El jugador ha sido eliminado correctamente'''
+    El jugador ha sido eliminado correctamente
+    '''
 
     print(cadena)
 
@@ -327,7 +329,8 @@ def f_pregunta_eliminar():
 
 def f_jugador_creado():
     cadena = '''
-    El jugador ha sido creado correctamente'''
+    El jugador ha sido creado correctamente
+    '''
 
     print(cadena)
 
@@ -335,7 +338,8 @@ def f_jugador_creado():
 
 def f_no_accion():
     cadena = '''
-    No se ha realizado ninguna accion'''
+    No se ha realizado ninguna accion
+    '''
 
     print(cadena)
 
@@ -343,7 +347,43 @@ def f_no_accion():
 
 def f_recordar_carga():
     cadena = '''
-    Recuerda cargar un jugador antes de jugar'''
+    Recuerda cargar un jugador antes de jugar
+    '''
+
+    print(cadena)
+
+    return None
+
+def f_cargados():
+    cadena = '''
+    Error, ya hay dos jugadores cargados, ¿quieres deshacer las cargas realizadas anteriormente? Si/No ==> '''
+
+    ret = input(cadena)
+
+    return ret
+
+def f_jugador_cargado():
+    cadena = '''
+    Jugador cargado correctamente
+    '''
+
+    print(cadena)
+
+    return None
+
+def f_error_carga():
+    cadena='''
+    El jugador introducido ya ha sido cargado
+    '''
+
+    print(cadena)
+
+    return None
+
+def f_letra_revelada():
+    cadena = '''
+    ERROR: Esa letra ya ha sido introducida.
+    '''
 
     print(cadena)
 
