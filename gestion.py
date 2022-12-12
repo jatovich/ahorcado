@@ -9,7 +9,7 @@
 
 from pantallas import f_pantalla_principal, f_error, f_acercade, f_pedir_palabra, \
      f_despedida, f_letras, f_pedir_letra, f_horca, f_ganador, f_perdedor, f_visualizar_score, \
-     f_letra_revelada
+     f_letra_revelada, f_pedir_resolver, f_posible_palabra, f_rendirse
 from score import f_crear_jugadores, f_cargar_jugador
 from persistencia import f_cargar
 
@@ -34,24 +34,35 @@ def f_jugar():
         
         # Visualizamos la palabra.
         f_letras(l)
-                
+        
+
         while True:
-            # Pedimos letra, y la ponemos en mayúscula.
-            letra_candidata = f_pedir_letra().upper()
-            # Se comprueba si está en la palabra secreta.
-            if not letra_candidata in palabra:
-                f_horca(nerror)
-                nerror += 1
-            else:
-                # Buscamos la letra candidata para ver si existe, y en qué posiciones.
-                p = 0
-                while p < nletras: 
-                    if letra_candidata == palabra[p]:
-                        # Hay una coincidencia, por lo que lo incluimos...
-                        if l[p] == letra_candidata: f_letra_revelada(); break
-                        else: l[p] = letra_candidata
-                    p += 1
+            resolver = f_pedir_resolver()
+            if resolver in ["Si", "SI", "si", "S", "s"]:
+                palabra_introducida = f_posible_palabra()
+                palabra_introducida = palabra_introducida.upper()
+                if palabra_introducida == palabra: f_ganador(palabra); break
+                else: f_horca(nerror); nerror += 1
             
+            elif resolver in ["Rendirse", "RENDIRSE", "rendirse", "r", "R"]:f_rendirse(); f_perdedor(palabra);break
+            
+            elif resolver in ["No", "NO", "no", "N", "n"]:
+                # Pedimos letra, y la ponemos en mayúscula.
+                letra_candidata = f_pedir_letra().upper()
+                # Se comprueba si está en la palabra secreta.
+                if not letra_candidata in palabra:
+                    f_horca(nerror)
+                    nerror += 1
+                else:
+                    # Buscamos la letra candidata para ver si existe, y en qué posiciones.
+                    p = 0
+                    while p < nletras: 
+                        if letra_candidata == palabra[p]:
+                            # Hay una coincidencia, por lo que lo incluimos...
+                            if l[p] == letra_candidata: f_letra_revelada(); break
+                            else: l[p] = letra_candidata
+                        p += 1
+            else: f_error()
             # Comprobamos si nos han ahorcado o hemos ganado.
             if nerror == 9:
                 f_perdedor(palabra)

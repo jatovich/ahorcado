@@ -388,3 +388,33 @@ def f_letra_revelada():
     print(cadena)
 
     return None
+
+def f_pedir_resolver():
+    cadena = '''
+    ¿Quieres resolver? Si/No/Rendirse ==> '''
+
+    ret = input(cadena)
+
+    return ret
+
+def f_posible_palabra():
+    '''Función que pide la inserción de una letra, y la devuelve'''
+    
+    cadena = '''
+    
+    ==> El Ahorcado <== 
+    
+    Introduce la palabra: '''
+    
+    ret = input(cadena)
+    
+    return ret
+
+def f_rendirse(): 
+    cadena = '''
+    Te has rendido, eres un perdedor
+    '''
+
+    print(cadena)
+
+    return None
