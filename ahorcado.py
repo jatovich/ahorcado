@@ -9,10 +9,11 @@
 # Módulo de inicio del juego.
 
 from gestion import f_gestion
+from persistencia import f_guardar
 
 def main():
     while True: 
-        if not f_gestion(): break
+        if not f_gestion(): f_guardar("jugadores_cargados.json", []); break
     
 if __name__ == '__main__':
     main()
