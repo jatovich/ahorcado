@@ -9,17 +9,17 @@
 
 import json
 
-def f_cargar():
+def f_cargar(archivo):
     
-    f = open("datos.json", "r")
+    f = open(archivo, "r")
     jugadores = json.load(f)
     f.close()
 
     return jugadores
 
-def f_guardar(jugadores):
+def f_guardar(archivo, jugadores):
 
-    f = open("datos.json", "w")
+    f = open(archivo, "w")
     json.dump(jugadores, f)
     f.close()
 

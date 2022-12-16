@@ -364,6 +364,8 @@ def f_cargados():
 
 def f_jugador_cargado():
     cadena = '''
+    ==> El Ahorcado <==
+    
     Jugador cargado correctamente
     '''
 
@@ -413,6 +415,28 @@ def f_posible_palabra():
 def f_rendirse(): 
     cadena = '''
     Te has rendido, eres un perdedor
+    '''
+
+    print(cadena)
+
+    return None
+
+def f_jugador_ya_cargado():
+    cadena = '''
+    ==> El Ahorcado <==
+    
+    El jugador ya ha sido cargado. Si quieres reiniciar las cargas puedes cerrar y volver a abrir el juego
+    '''
+
+    print(cadena)
+
+    return None
+
+def f_jugador_no_encontrado():
+    cadena = '''
+    ==> El Ahorcado <==
+    
+    El jugador que has introducido no existe. Crealo y despues recuerda cargarlo
     '''
 
     print(cadena)

@@ -7,11 +7,50 @@
 
 # Módulo de gestión del juego.
 
+from persistencia import f_cargar
 from pantallas import f_pantalla_principal, f_error, f_acercade, f_pedir_palabra, \
      f_despedida, f_letras, f_pedir_letra, f_horca, f_ganador, f_perdedor, f_visualizar_score, \
-     f_letra_revelada, f_pedir_resolver, f_posible_palabra, f_rendirse
-from score import f_crear_jugadores, f_cargar_jugador
-from persistencia import f_cargar
+     f_letra_revelada, f_pedir_usuario, f_jugador_existente, f_pregunta_eliminar, f_jugador_eliminado, \
+     f_continuar, f_no_accion, f_jugador_creado, f_jugador_ya_cargado, f_recordar_carga, f_jugador_cargado, \
+     f_jugador_no_encontrado, f_pedir_resolver, f_posible_palabra, f_rendirse
+from persistencia import f_cargar, f_guardar
+
+def f_crear_jugadores():
+    jugadores = f_cargar("datos.json")
+    nombre_jugador = f_pedir_usuario()
+    for usuario in jugadores: 
+        if usuario["nombre"] == nombre_jugador:
+            f_jugador_existente()
+            pregunta = f_pregunta_eliminar()
+            if pregunta == "Si":
+                f_jugador_eliminado()
+                jugadores.remove(usuario)
+                f_guardar("datos.json",jugadores)
+                f_continuar()
+                return None
+            else: f_no_accion(); f_continuar(); return None
+    jugador = {"nombre" : nombre_jugador, "score" : 0}
+    jugadores.append(jugador)
+    f_guardar("datos.json", jugadores)
+    f_jugador_creado()
+    f_recordar_carga()
+    f_continuar()
+    return None
+
+def f_cargar_jugador():
+    jugadores = f_cargar("datos.json")
+    jugadores_cargados = f_cargar("jugadores_cargados.json")
+    nombre_jugador = f_pedir_usuario()
+    for jugador in jugadores_cargados:
+        if jugador["nombre"] == nombre_jugador: f_jugador_ya_cargado(); return None
+    for usuario in jugadores:
+        if usuario["nombre"] == nombre_jugador: 
+            jugadores_cargados.append(usuario)
+            f_guardar("jugadores_cargados.json", jugadores_cargados)
+            f_jugador_cargado()
+            return None
+    f_jugador_no_encontrado()
+    f_no_accion()
 
 def f_jugar():
     '''Función que implementa el juego del ahorcado'''
@@ -97,7 +136,7 @@ def f_gestion():
 
         #Resultados jugadores
         if op == "4":
-            jugadores = f_cargar()
+            jugadores = f_cargar("datos.json")
             f_visualizar_score(jugadores)
 
         # Acerca de...
