@@ -16,9 +16,15 @@ from pantallas import f_pantalla_principal, f_error, f_acercade, f_pedir_palabra
 from score import f_sumar_score
 
 def f_crear_jugadores():
+    '''Funcion para crear jugadores'''
+
     jugadores = f_cargar("datos.json")
     nombre_jugador = f_pedir_usuario()
+    
+    # Revisa en todos los jugadores
     for usuario in jugadores: 
+        
+        # Si ya existe da la posibilidad de eliminarlo y cierra la funcion
         if usuario["nombre"] == nombre_jugador:
             f_jugador_existente()
             pregunta = f_pregunta_eliminar()
@@ -29,6 +35,8 @@ def f_crear_jugadores():
                 f_continuar()
                 return None
             else: f_no_accion(); f_continuar(); return None
+    
+    # Añade el jugador a datos.json
     jugador = {"nombre" : nombre_jugador, "score" : 0}
     jugadores.append(jugador)
     f_guardar("datos.json", jugadores)
@@ -38,12 +46,18 @@ def f_crear_jugadores():
     return None
 
 def f_cargar_jugador():
+    '''Funcion para cargar jugadores dentro del juego'''
+
     jugadores = f_cargar("datos.json")
     jugadores_cargados = f_cargar("jugadores_cargados.json")
     nombre_jugador = f_pedir_usuario()
+    
+    # Revisa en ambos archivos json
     for jugador in jugadores_cargados:
         if jugador["nombre"] == nombre_jugador: f_error_cargado(); return None
     for usuario in jugadores:
+        
+        # Si se encuentra en datos.json lo añade sino marca que no se ha encontrado
         if usuario["nombre"] == nombre_jugador: 
             jugadores_cargados.append(usuario)
             f_guardar("jugadores_cargados.json", jugadores_cargados)
@@ -55,9 +69,11 @@ def f_cargar_jugador():
 def f_jugar():
     '''Función que implementa el juego del ahorcado por turnos en funcion de jugadores cargados'''
 
+    # Carga a los jugadores que se han cargado. Sino hay lo recuerda
     jugadores = f_cargar("jugadores_cargados.json")
     if jugadores == []: f_ningun_cargado(); f_recordar_carga(); return None
 
+    # Para cada jugador
     for jugador in jugadores: 
         f_turno(jugador["nombre"])
         
@@ -114,6 +130,8 @@ def f_jugar():
                     break
                 elif None not in l:
                     f_finalizar("acertado",palabra)
+                    
+                    # Se le suma score por ganar
                     f_sumar_score(jugador)
                     f_score_sumado()
                     break

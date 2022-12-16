@@ -10,6 +10,8 @@
 from persistencia import f_cargar, f_guardar
 
 def f_sumar_score(jugador):
+    '''Funcion que suma puntuacion al jugador en el archivo datos.json'''
+    
     jugadores = f_cargar("datos.json")
     for usuario in jugadores:
         if usuario["nombre"] == jugador["nombre"]: 

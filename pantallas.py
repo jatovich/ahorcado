@@ -150,29 +150,6 @@ def f_pedir_resolver():
     
     return ret
 
-def f_ganador(palabra):
-    cadena = '''
-    
-    HAS ACERTADO!!!! La palabra secreta es {}
-    '''.format(palabra.lower())
-    
-    print(cadena)
-    f_continuar()
-    
-    return None
-
-def f_perdedor(palabra):
-    cadena = '''
-    
-    HAS PERDIDO!!!! La palabra secreta es {}
-    '''.format(palabra.lower())
-    
-    print(cadena)
-    f_continuar()
-    
-    return None
-
-    
 def f_visualizar_score(jugadores):
     '''Función que visualiza el resultado de los jugadores'''
     
@@ -302,6 +279,8 @@ def f_horca(opcion):
     return None
 
 def f_jugador_existente():
+    '''Funcion que visualiza por pantalla que el jugador existe ya'''
+
     cadena = '''
     El jugador introducido ya existe
     '''
@@ -311,6 +290,8 @@ def f_jugador_existente():
     return None
 
 def f_jugador_eliminado():
+    '''Funcion que visualiza por pantalla que el jugador ha sido eliminado'''
+
     cadena = '''
     El jugador ha sido eliminado correctamente
     '''
@@ -320,14 +301,18 @@ def f_jugador_eliminado():
     return None
 
 def f_pregunta_eliminar():
+    '''Funcion que nos dice si el usuario quiere eliminar el jugador'''
+
     cadena = '''
-    ¿Quieres eliminar el usuario? (Si/No) ==> '''
+    ¿Quieres eliminar el jugador? (Si/No) ==> '''
 
     ret = input(cadena)
 
     return ret
 
 def f_jugador_creado():
+    '''Funcion que visualiza que el usuario ha sido creado'''
+
     cadena = '''
     El jugador ha sido creado correctamente
     '''
@@ -337,6 +322,8 @@ def f_jugador_creado():
     return None
 
 def f_no_accion():
+    '''Funcion que visualiza que no se ha realizado ninguna accion'''
+
     cadena = '''
     No se ha realizado ninguna accion
     '''
@@ -346,6 +333,8 @@ def f_no_accion():
     return None
 
 def f_recordar_carga():
+    '''Funcion que recuerda la carga de un jugador'''
+
     cadena = '''
     Recuerda cargar un jugador antes de jugar
     '''
@@ -355,6 +344,8 @@ def f_recordar_carga():
     return None
 
 def f_jugador_cargado():
+    '''Funcion que visualiza que se ha cargado un jugador'''
+
     cadena = '''
     ==> El Ahorcado <==
     
@@ -366,6 +357,8 @@ def f_jugador_cargado():
     return None
 
 def f_letra_revelada():
+    '''Funcion que da error al introducir una letra repetida'''
+
     cadena = '''
     ERROR: Esa letra ya ha sido introducida.
     '''
@@ -375,6 +368,8 @@ def f_letra_revelada():
     return None
 
 def f_pedir_resolver():
+    '''Funcion que pide si se quiere resolver la palabra'''
+
     cadena = '''
     ¿Quieres resolver? Si/No/Rendirse ==> '''
 
@@ -396,6 +391,8 @@ def f_posible_palabra():
     return ret
 
 def f_rendirse(): 
+    '''Funcion que visualiza que te has rendido'''
+
     cadena = '''
     Te has rendido, eres un perdedor
 
@@ -407,6 +404,8 @@ def f_rendirse():
     return None
 
 def f_error_cargado():
+    '''Funcion que visualiza que el jugador ya se ha cargado'''
+
     cadena = '''
     ==> El Ahorcado <==
     
@@ -418,6 +417,8 @@ def f_error_cargado():
     return None
 
 def f_jugador_no_encontrado():
+    '''Funcion que visualiza que no existe el jugador'''
+
     cadena = '''
     ==> El Ahorcado <==
     
@@ -429,6 +430,8 @@ def f_jugador_no_encontrado():
     return None
 
 def f_finalizar(opcion, palabra):
+    '''Funcion que visualiza si has ganado o perdido y la palabra'''
+
     cadena = '''
     
     HAS {}!!!! La palabra secreta es {}
@@ -440,6 +443,8 @@ def f_finalizar(opcion, palabra):
     return None
 
 def f_ningun_cargado():
+    '''Funcion que visualiza que no se ha cargado ningun jugador'''
+
     cadena = '''
     No hay ningun jugador cargado. Vas a volver al menu principal
     '''
@@ -449,6 +454,8 @@ def f_ningun_cargado():
     return None
 
 def f_turno(jugador):
+    '''Funcion que visualiza de quien es el turno'''
+
     cadena = '''
     Es el turno de {}''' .format(jugador)
 
@@ -457,6 +464,8 @@ def f_turno(jugador):
     return None
 
 def f_score_sumado():
+    '''Funcion que visualiza que se ha sumado puntuacion'''
+
     cadena = '''
     ==> El Ahorcado <==
 

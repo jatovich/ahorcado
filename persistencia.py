@@ -10,6 +10,7 @@
 import json
 
 def f_cargar(archivo):
+    '''Funcion para cargar los datos de un archivo json'''
     
     f = open(archivo, "r")
     jugadores = json.load(f)
@@ -18,6 +19,7 @@ def f_cargar(archivo):
     return jugadores
 
 def f_guardar(archivo, jugadores):
+    '''Funcion para guardar datos en un archivo json'''
 
     f = open(archivo, "w")
     json.dump(jugadores, f)
