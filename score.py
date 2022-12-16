@@ -11,13 +11,13 @@ from persistencia import f_cargar, f_guardar
 
 def f_sumar_score(jugador):
     '''Funcion que suma puntuacion al jugador en el archivo datos.json'''
-    
+
     jugadores = f_cargar("datos.json")
     for usuario in jugadores:
         if usuario["nombre"] == jugador["nombre"]: 
-            jugador["score"] += 1
             jugadores.remove(usuario)
-            jugadores.append(jugador)
+            usuario["score"] += 1
+            jugadores.append(usuario)
     f_guardar("datos.json", jugadores)
 
 
