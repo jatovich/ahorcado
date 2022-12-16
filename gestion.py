@@ -12,7 +12,7 @@ from pantallas import f_pantalla_principal, f_error, f_acercade, f_pedir_palabra
      f_despedida, f_letras, f_pedir_letra, f_horca, f_visualizar_score, f_finalizar, \
      f_letra_revelada, f_pedir_usuario, f_jugador_existente, f_pregunta_eliminar, f_jugador_eliminado, \
      f_continuar, f_no_accion, f_jugador_creado, f_error_cargado, f_recordar_carga, f_jugador_cargado, \
-     f_jugador_no_encontrado, f_pedir_resolver, f_posible_palabra, f_rendirse, f_ningun_cargado, f_turno
+     f_jugador_no_encontrado, f_pedir_resolver, f_posible_palabra, f_rendirse, f_ningun_cargado, f_turno, f_score_sumado
 from score import f_sumar_score
 
 def f_crear_jugadores():
@@ -86,7 +86,7 @@ def f_jugar():
                 if resolver in ["Si", "SI", "si", "S", "s"]:
                     palabra_introducida = f_posible_palabra()
                     palabra_introducida = palabra_introducida.upper()
-                    if palabra_introducida == palabra: f_finalizar("acertado",palabra); break
+                    if palabra_introducida == palabra: f_finalizar("acertado",palabra);f_sumar_score(jugador);f_score_sumado(); break
                     else: f_horca(nerror); nerror += 1
                 
                 elif resolver in ["Rendirse", "RENDIRSE", "rendirse", "r", "R"]:f_rendirse(); f_finalizar("perdido", palabra); return None
@@ -114,6 +114,8 @@ def f_jugar():
                     break
                 elif None not in l:
                     f_finalizar("acertado",palabra)
+                    f_sumar_score(jugador)
+                    f_score_sumado()
                     break
                 else:
                     f_letras(l)

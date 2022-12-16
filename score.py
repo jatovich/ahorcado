@@ -9,11 +9,13 @@
 # y cargar sus datos en el programa.
 from persistencia import f_cargar, f_guardar
 
-
 def f_sumar_score(jugador):
     jugadores = f_cargar("datos.json")
     for usuario in jugadores:
-        if usuario["nombre"] == jugador["nombre"]: usuario["score"] += 1
+        if usuario["nombre"] == jugador["nombre"]: 
+            jugador["score"] += 1
+            jugadores.remove(usuario)
+            jugadores.append(jugador)
     f_guardar("datos.json", jugadores)
 
 

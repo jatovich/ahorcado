@@ -398,6 +398,8 @@ def f_posible_palabra():
 def f_rendirse(): 
     cadena = '''
     Te has rendido, eres un perdedor
+
+    Debido a que te has rendido vamos a regresar al menu principal
     '''
 
     print(cadena)
@@ -449,6 +451,17 @@ def f_ningun_cargado():
 def f_turno(jugador):
     cadena = '''
     Es el turno de {}''' .format(jugador)
+
+    print(cadena)
+
+    return None
+
+def f_score_sumado():
+    cadena = '''
+    ==> El Ahorcado <==
+
+    Se te ha sumado un punto a tu puntuacion, puedos mirar tu puntuacion en la opcion resultados jugadores del menu
+    '''
 
     print(cadena)
 
