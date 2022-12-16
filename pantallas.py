@@ -354,28 +354,11 @@ def f_recordar_carga():
 
     return None
 
-def f_cargados():
-    cadena = '''
-    Error, ya hay dos jugadores cargados, ¿quieres deshacer las cargas realizadas anteriormente? Si/No ==> '''
-
-    ret = input(cadena)
-
-    return ret
-
 def f_jugador_cargado():
     cadena = '''
     ==> El Ahorcado <==
     
     Jugador cargado correctamente
-    '''
-
-    print(cadena)
-
-    return None
-
-def f_error_carga():
-    cadena='''
-    El jugador introducido ya ha sido cargado
     '''
 
     print(cadena)
@@ -421,7 +404,7 @@ def f_rendirse():
 
     return None
 
-def f_jugador_ya_cargado():
+def f_error_cargado():
     cadena = '''
     ==> El Ahorcado <==
     
@@ -438,6 +421,34 @@ def f_jugador_no_encontrado():
     
     El jugador que has introducido no existe. Crealo y despues recuerda cargarlo
     '''
+
+    print(cadena)
+
+    return None
+
+def f_finalizar(opcion, palabra):
+    cadena = '''
+    
+    HAS {}!!!! La palabra secreta es {}
+    '''.format(opcion.upper(), palabra.lower())
+    
+    print(cadena)
+    f_continuar()
+    
+    return None
+
+def f_ningun_cargado():
+    cadena = '''
+    No hay ningun jugador cargado. Vas a volver al menu principal
+    '''
+
+    print(cadena)
+
+    return None
+
+def f_turno(jugador):
+    cadena = '''
+    Es el turno de {}''' .format(jugador)
 
     print(cadena)
 

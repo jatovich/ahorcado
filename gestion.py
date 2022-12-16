@@ -7,13 +7,13 @@
 
 # Módulo de gestión del juego.
 
-from persistencia import f_cargar
-from pantallas import f_pantalla_principal, f_error, f_acercade, f_pedir_palabra, \
-     f_despedida, f_letras, f_pedir_letra, f_horca, f_ganador, f_perdedor, f_visualizar_score, \
-     f_letra_revelada, f_pedir_usuario, f_jugador_existente, f_pregunta_eliminar, f_jugador_eliminado, \
-     f_continuar, f_no_accion, f_jugador_creado, f_jugador_ya_cargado, f_recordar_carga, f_jugador_cargado, \
-     f_jugador_no_encontrado, f_pedir_resolver, f_posible_palabra, f_rendirse
 from persistencia import f_cargar, f_guardar
+from pantallas import f_pantalla_principal, f_error, f_acercade, f_pedir_palabra, \
+     f_despedida, f_letras, f_pedir_letra, f_horca, f_visualizar_score, f_finalizar, \
+     f_letra_revelada, f_pedir_usuario, f_jugador_existente, f_pregunta_eliminar, f_jugador_eliminado, \
+     f_continuar, f_no_accion, f_jugador_creado, f_error_cargado, f_recordar_carga, f_jugador_cargado, \
+     f_jugador_no_encontrado, f_pedir_resolver, f_posible_palabra, f_rendirse, f_ningun_cargado, f_turno
+from score import f_sumar_score
 
 def f_crear_jugadores():
     jugadores = f_cargar("datos.json")
@@ -42,7 +42,7 @@ def f_cargar_jugador():
     jugadores_cargados = f_cargar("jugadores_cargados.json")
     nombre_jugador = f_pedir_usuario()
     for jugador in jugadores_cargados:
-        if jugador["nombre"] == nombre_jugador: f_jugador_ya_cargado(); return None
+        if jugador["nombre"] == nombre_jugador: f_error_cargado(); return None
     for usuario in jugadores:
         if usuario["nombre"] == nombre_jugador: 
             jugadores_cargados.append(usuario)
@@ -53,64 +53,70 @@ def f_cargar_jugador():
     f_no_accion()
 
 def f_jugar():
-    '''Función que implementa el juego del ahorcado'''
-    
-    # Palabra secreta.
-    palabra = f_pedir_palabra()
-    palabra = palabra.upper()
-    nletras = len(palabra)
-    
-    if nletras > 0:
-        
-        # Creamos la lista de letras de la palabra secreta.
-        l = []
-        i = 0
-        while i < nletras:
-            l.append(None)
-            i += 1
-    
-        nerror = 0
-        
-        # Visualizamos la palabra.
-        f_letras(l)
-        
+    '''Función que implementa el juego del ahorcado por turnos en funcion de jugadores cargados'''
 
-        while True:
-            resolver = f_pedir_resolver()
-            if resolver in ["Si", "SI", "si", "S", "s"]:
-                palabra_introducida = f_posible_palabra()
-                palabra_introducida = palabra_introducida.upper()
-                if palabra_introducida == palabra: f_ganador(palabra); break
-                else: f_horca(nerror); nerror += 1
+    jugadores = f_cargar("jugadores_cargados.json")
+    if jugadores == []: f_ningun_cargado(); f_recordar_carga(); return None
+
+    for jugador in jugadores: 
+        f_turno(jugador["nombre"])
+        
+        # Palabra secreta.
+        palabra = f_pedir_palabra()
+        palabra = palabra.upper()
+        nletras = len(palabra)
+        
+        if nletras > 0:
             
-            elif resolver in ["Rendirse", "RENDIRSE", "rendirse", "r", "R"]:f_rendirse(); f_perdedor(palabra);break
+            # Creamos la lista de letras de la palabra secreta.
+            l = []
+            i = 0
+            while i < nletras:
+                l.append(None)
+                i += 1
+        
+            nerror = 0
             
-            elif resolver in ["No", "NO", "no", "N", "n"]:
-                # Pedimos letra, y la ponemos en mayúscula.
-                letra_candidata = f_pedir_letra().upper()
-                # Se comprueba si está en la palabra secreta.
-                if not letra_candidata in palabra:
-                    f_horca(nerror)
-                    nerror += 1
+            # Visualizamos la palabra.
+            f_letras(l)
+            
+
+            while True:
+                resolver = f_pedir_resolver()
+                if resolver in ["Si", "SI", "si", "S", "s"]:
+                    palabra_introducida = f_posible_palabra()
+                    palabra_introducida = palabra_introducida.upper()
+                    if palabra_introducida == palabra: f_finalizar("acertado",palabra); break
+                    else: f_horca(nerror); nerror += 1
+                
+                elif resolver in ["Rendirse", "RENDIRSE", "rendirse", "r", "R"]:f_rendirse(); f_finalizar("perdido", palabra); return None
+                
+                elif resolver in ["No", "NO", "no", "N", "n"]:
+                    # Pedimos letra, y la ponemos en mayúscula.
+                    letra_candidata = f_pedir_letra().upper()
+                    # Se comprueba si está en la palabra secreta.
+                    if not letra_candidata in palabra:
+                        f_horca(nerror)
+                        nerror += 1
+                    else:
+                        # Buscamos la letra candidata para ver si existe, y en qué posiciones.
+                        p = 0
+                        while p < nletras: 
+                            if letra_candidata == palabra[p]:
+                                # Hay una coincidencia, por lo que lo incluimos...
+                                if l[p] == letra_candidata: f_letra_revelada(); break
+                                else: l[p] = letra_candidata
+                            p += 1
+                else: f_error()
+                # Comprobamos si nos han ahorcado o hemos ganado.
+                if nerror == 9:
+                    f_finalizar("perdido",palabra)
+                    break
+                elif None not in l:
+                    f_finalizar("acertado",palabra)
+                    break
                 else:
-                    # Buscamos la letra candidata para ver si existe, y en qué posiciones.
-                    p = 0
-                    while p < nletras: 
-                        if letra_candidata == palabra[p]:
-                            # Hay una coincidencia, por lo que lo incluimos...
-                            if l[p] == letra_candidata: f_letra_revelada(); break
-                            else: l[p] = letra_candidata
-                        p += 1
-            else: f_error()
-            # Comprobamos si nos han ahorcado o hemos ganado.
-            if nerror == 9:
-                f_perdedor(palabra)
-                break
-            elif None not in l:
-                f_ganador(palabra)
-                break
-            else:
-                f_letras(l)
+                    f_letras(l)
                 
 def f_gestion():
     '''Función de gestión del juego'''
